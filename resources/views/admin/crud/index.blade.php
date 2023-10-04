@@ -27,51 +27,57 @@
 
                             <tbody>
                                 @foreach ($data as $item)
-                                    @if (Auth::user()->role == 'admin' || (Auth::user()->role == 'approval' && Auth::user()->id == $item->approval_id))
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->kendaraan }}</td>
-                                            <td>{{ $item->driver }}</td>
-                                            <td>{{ $item->approval_id-1 }}</td>
-                                            <td>
-                                                @php
-                                                    $pendingApprovals = $data->where('created_at', $item->created_at)->where('approved', 0)->count();
-                                                @endphp
-
-                                                @if ($pendingApprovals > 0)
-                                                    <span style="color: black;background-color:wheat;padding:10px;border-radius:45px;font-size:14px">Pending</span>
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $item->kendaraan }}</td>
+                                        <td>{{ $item->driver }}</td>
+                                        <td>{{ $item->approval_id }}</td>
+                                        <td>
+                                            @if ($item->approved)
+                                                <span
+                                                    style="color: white;background-color:rgb(116, 205, 116);padding:10px;border-radius:45px;font-size:14px">Disetujui</span>
+                                            @else
+                                                <span
+                                                    style="color: black;background-color:wheat;padding:10px;border-radius:45px;font-size:14px">Pending</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if (Auth::user()->role == 'approval' && Auth::user()->id == $item->approval_id)
+                                                @if ($item->approved == 1)
+                                                    <form action="{{ route('setStatus', $item->id) }}" method="POST">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-danger"> 
+                                                            <i class="fa fa-times"></i> Cancel
+                                                        </button>
+                                                    </form>
                                                 @else
-                                                    <span style="color: white;background-color:rgb(116, 205, 116);padding:10px;border-radius:45px;font-size:14px">Disetujui</span>
+                                                    <form action="{{ route('setStatus', $item->id) }}" method="POST">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-success"> 
+                                                            <i class="fa fa-check"></i> Approve
+                                                        </button>
+                                                    </form>
                                                 @endif
-                                            </td>
-
-                                            <td>
-                                                @if (Auth::user()->role == 'approval' && Auth::user()->id == $item->approval_id)
-                                                    @if ($item->approved == 1)
-                                                        <form class="d-flex justify-content-center" action="{{ route('setStatus', $item->id) }}" method="POST">
-                                                            @csrf
-                                                            <button type="submit" class="btn btn-danger"> 
-                                                                <i class="fa fa-times"></i>
-                                                            </button>
-                                                        </form>
-                                                    @else
-                                                        <form class="d-flex justify-content-center" action="{{ route('setStatus', $item->id) }}" method="POST">
-                                                            @csrf
-                                                            <button type="submit" class="btn btn-success">
-                                                                Approve
-                                                            </button>
-                                                        </form>
-                                                    @endif
+                                            @else
+                                                @if ($item->approved == 1)
+                                                    <form action="{{ route('setStatus', $item->id) }}" method="POST">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-danger" disabled> 
+                                                            <i class="fa fa-times"></i> Cancel
+                                                        </button>
+                                                    </form>
                                                 @else
-                                                    <button class="d-flex justify-content-center btn btn-danger" disabled> 
-                                                        <i class="fa-solid fa-ban"></i>
-                                                    </button>
+                                                    <form action="{{ route('setStatus', $item->id) }}" method="POST">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-success" disabled> 
+                                                            <i class="fa fa-check"></i> Approve
+                                                        </button>
+                                                    </form>
                                                 @endif
-                                            </td>
-                                        </tr>
-                                    @endif
+                                            @endif
+                                        </td>
+                                    </tr>
                                 @endforeach
-
                             </tbody>
                         </table>
                     </div>

@@ -42,6 +42,13 @@ class LoginController extends Controller
 
     protected function authenticated()
     {
+
+        $activity = 'Telah Login';
+        $log_history = new LogActivity();
+        $log_history->user_name = Auth::user()->name;
+        $log_history->activity = $activity;
+        $log_history->save();
+
         $attributes = request()->validate([
             'email' => 'required|email',
             'password' => 'required',
@@ -53,11 +60,5 @@ class LoginController extends Controller
         } else {
             return back()->withErrors(['email' => 'Authentication failed']);
         }
-
-        $activity = 'Telah Login';
-        $log_history = new LogActivity();
-        $log_history->user_name = Auth::user()->name;
-        $log_history->activity = $activity;
-        $log_history->save();
     }
 }

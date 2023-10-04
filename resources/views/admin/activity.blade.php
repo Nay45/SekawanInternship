@@ -35,7 +35,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td class="text-center">Data kosong</td>
+                                <td class="text-center" colspan="4">Data kosong</td>
                             </tr>
                         @endforelse
                     </tbody>

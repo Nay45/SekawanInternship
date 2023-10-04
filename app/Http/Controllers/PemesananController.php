@@ -48,18 +48,13 @@ class PemesananController extends Controller
     public function store(Request $request)
     {
         try {
-            $approvalId = 1;
-            for ($i=2; $i <= 3 ; $i++) { 
-                $approvalId += 1;
-
-                $confirmed =  pemesanan::create(
-                    [
-                        'kendaraan' => $request['kendaraan'],
-                        'driver' => $request['driver'],
-                        'approval_id' => $approvalId
-                    ]
-                );
-            }
+            $confirmed =  pemesanan::create(
+                [
+                    'kendaraan' => $request['kendaraan'],
+                    'driver' => $request['driver'],
+                    'approval_id' => $request['approval_id']
+                ]
+            );
             if ($confirmed) {
                 return redirect(route('manage.index'));
             }
