@@ -19,9 +19,9 @@ class KendaraanSeeder extends Seeder
 
         try {
             Kendaraan::insert([
-                ['id' => 1, 'nama' => 'kijang', 'created_at' => now(), 'updated_at' => now()],
-                ['id' => 2, 'nama' => 'inova', 'created_at' => now(), 'updated_at' => now()],
-                ['id' => 3, 'nama' => 'xenia', 'created_at' => now(), 'updated_at' => now()],
+                ['id' => 1, 'nama' => 'lambo', 'created_at' => now(), 'updated_at' => now()],
+                ['id' => 2, 'nama' => 'jeeb', 'created_at' => now(), 'updated_at' => now()],
+                ['id' => 3, 'nama' => 'livina', 'created_at' => now(), 'updated_at' => now()],
             ]);
             DB::commit();
             $this->command->info("kendaraan berhasil ditambahkan.");

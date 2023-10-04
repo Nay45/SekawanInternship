@@ -20,7 +20,7 @@
         @endif
         <div class="col-6">
             <h4>List Kendaraan</h4>
-            <div class="card">
+            <div class="card text-center">
                 <div class="content">
                     <div class="card-body">
                         <table class="table table-bordered">
@@ -28,6 +28,9 @@
                                 <tr>
                                     <th># </th>
                                     <th>Nama Kendaraan</th>
+                                    @if (Auth::user()->role == 'admin')
+                                    <th>Action</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -35,13 +38,23 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->nama }}</td>
+                                        @if (Auth::user()->role == 'admin')
+                                        <td>
+                                            <form action="{{ route('kendaraan.destroy', $item->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-link text-danger">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                        @endif
                                     </tr>
                                 @endforeach
 
                             </tbody>
                         </table>
                     </div>
-                    {{-- <div class="card-footer">{{ $dtlayanan->links() }}</div> --}}
                 </div>
             </div>
         </div>

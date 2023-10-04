@@ -27,4 +27,10 @@ class KendaraanController extends Controller
         ]);
         return redirect(route('kendaraan.index'));
     }
+    public function destroy($id)
+    {
+        $destroy = Kendaraan::findOrFail($id);
+        $destroy->delete();
+        return redirect()->back();
+    }
 }

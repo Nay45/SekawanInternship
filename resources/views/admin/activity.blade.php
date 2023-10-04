@@ -1,7 +1,7 @@
 @extends('home')
 @section('content')
     <h5>Log Aktivitas Semua fitur</h5>
-    <div class="card">
+    <div class="card text-center">
         <div class="content">
             <div class="card-body">
                 <table class="table table-bordered">
@@ -43,7 +43,6 @@
 
                 </table>
             </div>
-            {{-- <div class="card-footer">{{ $dtlayanan->links() }}</div> --}}
         </div>
     </div>
 @endsection

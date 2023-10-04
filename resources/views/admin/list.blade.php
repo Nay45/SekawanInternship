@@ -26,7 +26,6 @@
 
                 </table>
             </div>
-            {{-- <div class="card-footer">{{ $dtlayanan->links() }}</div> --}}
         </div>
     </div>
 @endsection
